@@ -2,6 +2,8 @@
 
 const rooms = new Map();
 
+const MAX_ROOM_ID_ATTEMPTS = 100;
+
 function generateRoomId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let id = '';
@@ -13,8 +15,13 @@ function generateRoomId() {
 
 function createRoom(socketId, nickname) {
   let roomId;
+  let attempts = 0;
   do {
+    if (attempts >= MAX_ROOM_ID_ATTEMPTS) {
+      throw new Error('Failed to generate a unique room ID after maximum attempts.');
+    }
     roomId = generateRoomId();
+    attempts++;
   } while (rooms.has(roomId));
 
   const player = {

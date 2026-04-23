@@ -6,7 +6,7 @@ const { Server } = require('socket.io');
 const path = require('path');
 
 const roomManager = require('./roomManager');
-const { startGameLoop, stopGameLoop, updatePaddle } = require('./gameLoop');
+const { startGameLoop, stopGameLoop, updatePaddle, GAME_START_DELAY_MS } = require('./gameLoop');
 
 const app = express();
 const server = http.createServer(app);
@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
         startGameLoop(room, io);
         io.to(room.roomId).emit('game_start', { gameState: room.gameState });
         console.log(`[game_start] room ${room.roomId}`);
-      }, 1000);
+      }, GAME_START_DELAY_MS);
     }
   });
 

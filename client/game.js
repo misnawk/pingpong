@@ -31,6 +31,7 @@ const CANVAS_HEIGHT = 600;
 const PADDLE_WIDTH = 12;
 const PADDLE_HEIGHT = 100;
 const BALL_SIZE = 10;
+const MOUSE_THROTTLE_MS = 16; // ~60fps
 
 // ===== Game state (mirror from server) =====
 let gameState = null;
@@ -91,7 +92,7 @@ let lastMouseSent = 0;
 
 canvas.addEventListener('mousemove', (e) => {
   const now = Date.now();
-  if (now - lastMouseSent < 16) return; // ~60fps throttle
+  if (now - lastMouseSent < MOUSE_THROTTLE_MS) return; // ~60fps throttle
   lastMouseSent = now;
 
   const rect = canvas.getBoundingClientRect();

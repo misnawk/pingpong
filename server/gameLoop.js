@@ -5,9 +5,12 @@ const CANVAS_HEIGHT = 600;
 const PADDLE_HEIGHT = 100;
 const PADDLE_WIDTH = 12;
 const BALL_SIZE = 10;
+const BALL_SPEED_MULTIPLIER = 1.05;
+const VERTICAL_VELOCITY_FACTOR = 0.8;
 const BALL_SPEED_INITIAL = 5;
 const WIN_SCORE = 11;
 const TICK_RATE = 1000 / 60; // 60fps
+const GAME_START_DELAY_MS = 1000;
 
 function createInitialGameState() {
   return {
@@ -60,10 +63,10 @@ function tick(room) {
     ball.y - BALL_SIZE / 2 <= leftPaddleY + PADDLE_HEIGHT
   ) {
     ball.x = leftPaddleX + PADDLE_WIDTH + BALL_SIZE / 2;
-    ball.vx *= -1.05;
+    ball.vx *= -BALL_SPEED_MULTIPLIER;
     // Adjust vy based on hit position
     const hitPos = (ball.y - (leftPaddleY + PADDLE_HEIGHT / 2)) / (PADDLE_HEIGHT / 2);
-    ball.vy = hitPos * Math.abs(ball.vx) * 0.8;
+    ball.vy = hitPos * Math.abs(ball.vx) * VERTICAL_VELOCITY_FACTOR;
   }
 
   // Right paddle collision
@@ -77,9 +80,9 @@ function tick(room) {
     ball.y - BALL_SIZE / 2 <= rightPaddleY + PADDLE_HEIGHT
   ) {
     ball.x = rightPaddleX - BALL_SIZE / 2;
-    ball.vx *= -1.05;
+    ball.vx *= -BALL_SPEED_MULTIPLIER;
     const hitPos = (ball.y - (rightPaddleY + PADDLE_HEIGHT / 2)) / (PADDLE_HEIGHT / 2);
-    ball.vy = hitPos * Math.abs(ball.vx) * 0.8;
+    ball.vy = hitPos * Math.abs(ball.vx) * VERTICAL_VELOCITY_FACTOR;
   }
 
   // Scoring
@@ -166,4 +169,5 @@ module.exports = {
   stopGameLoop,
   updatePaddle,
   createInitialGameState,
+  GAME_START_DELAY_MS,
 };
