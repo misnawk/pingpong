@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Ping Pong</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        background: #081018;
+        color: #f4f7fb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      #game-root {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 15%, #1d4358 0%, #081018 52%, #03060a 100%);
+      }
+
+      .hud {
+        position: fixed;
+        inset: 24px 24px auto 24px;
+        z-index: 10;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        pointer-events: none;
+      }
+
+      .panel {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        background: rgba(7, 14, 22, 0.72);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(18px);
+      }
+
+      #score-board {
+        min-width: 280px;
+        padding: 16px 20px;
+      }
+
+      #spin-indicator {
+        min-width: 160px;
+        padding: 14px 18px;
+        text-align: right;
+      }
+
+      #lobby-panel {
+        position: fixed;
+        z-index: 20;
+        left: 50%;
+        top: 50%;
+        width: min(420px, calc(100vw - 32px));
+        transform: translate(-50%, -50%);
+        padding: 28px;
+      }
+
+      #lobby-panel h1 {
+        margin: 0 0 8px;
+        font-size: 2.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      #lobby-panel p {
+        margin: 0 0 22px;
+        color: #9fb3c8;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+        margin: 14px 0;
+      }
+
+      label {
+        color: #afc1d4;
+        font-size: 0.88rem;
+      }
+
+      input {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        font-size: 1rem;
+        outline: none;
+        padding: 12px 14px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 12px;
+        color: #071019;
+        cursor: pointer;
+        font-weight: 800;
+        padding: 12px 16px;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .primary {
+        background: #8ef06d;
+      }
+
+      .secondary {
+        background: #6dd9ff;
+      }
+
+      .muted {
+        color: #8da2b7;
+        font-size: 0.86rem;
+        margin-top: 14px;
+        min-height: 1.2em;
+      }
+
+      @media (max-width: 640px) {
+        .hud {
+          inset: 12px;
+          flex-direction: column;
+        }
+
+        #score-board,
+        #spin-indicator {
+          width: 100%;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="game-root"></main>
+
+    <section class="hud">
+      <div id="score-board" class="panel"></div>
+      <div id="spin-indicator" class="panel"></div>
+    </section>
+
+    <section id="lobby-panel" class="panel">
+      <h1>3D Ping Pong</h1>
+      <p>방을 만들거나 친구의 방 코드로 입장하세요.</p>
+      <div class="field">
+        <label for="nickname">닉네임</label>
+        <input id="nickname" maxlength="12" placeholder="Player" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="room-code">방 코드</label>
+        <input id="room-code" maxlength="6" placeholder="ABC123" autocomplete="off" />
+      </div>
+      <div class="button-row">
+        <button id="create-room" class="primary">방 만들기</button>
+        <button id="join-room" class="secondary">입장하기</button>
+      </div>
+      <div id="lobby-message" class="muted"></div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

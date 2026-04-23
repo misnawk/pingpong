@@ -1,0 +1,15 @@
+{
+  "name": "pingpong-game-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "express": "^4.18.2",
+    "socket.io": "^4.8.1"
+  }
+}
