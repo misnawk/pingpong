@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏓 Ping Pong - 로비</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="lobby-container">
+    <h1 class="logo">🏓 Ping Pong</h1>
+    <p class="subtitle">실시간 멀티플레이어 탁구</p>
+
+    <div class="card">
+      <h2>닉네임</h2>
+      <input
+        type="text"
+        id="nicknameInput"
+        placeholder="닉네임 입력"
+        maxlength="12"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="card">
+      <h2>방 만들기</h2>
+      <button id="createRoomBtn" class="btn btn-primary">방 만들기</button>
+    </div>
+
+    <div class="card">
+      <h2>방 참가하기</h2>
+      <div class="input-row">
+        <input
+          type="text"
+          id="roomCodeInput"
+          placeholder="방 코드 6자리"
+          maxlength="6"
+          autocomplete="off"
+        />
+        <button id="joinRoomBtn" class="btn btn-secondary">참가하기</button>
+      </div>
+    </div>
+
+    <div id="errorMsg" class="error-msg hidden"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="lobby.js"></script>
+</body>
+</html>
